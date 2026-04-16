@@ -82,11 +82,21 @@ TODO
 
 ## Brief overview of your architecture and any potential goals you are trying to achieve with it?
 
-TODO
+## Goals
+
+- Implement an easy and uniform way to consume and maintain Kubernetes across all our landing zones (private and public clouds).
+- Have a centralized way to manage the lifecycle of our clusters and their components.
+- Apply security and compliance policies across all clusters we are managing.
 
 ## Can you expand on why you are using those projects/services?
 
-TODO
+CNCF projects and OpenSource are at the heart of our architecture:
+- **Kubernetes**
+- **ClusterAPI to rule them all**
+- **ArgoCD to deploy clusters & components**
+- **Kyverno to enforce policies and mutate resources**
+- **Cilium as CNI**
+- **Harbor as a private registry**
 
 ## What has worked well?
 
