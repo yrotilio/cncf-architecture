@@ -34,7 +34,7 @@ reference_architectures:
   - **Using since:** 2024
   - **Current version:** v3.3.6
 
-  ArgoCD good 
+  ArgoCD serves as our main infrastructure engine. We've configured it so it can manage day 1 and day 2 operations seamlessly : Cluster APIs primitives on the management cluster to ensure CP operations, and kubernetes deployment to ensure tooling and user clusters configuration.
   {{< /card >}}
 
   {{< card header="Cilium" >}}
@@ -42,17 +42,55 @@ reference_architectures:
   - **Using since:** 2024
   - **Current version:** v1.18.5
 
-  Cilium good 
+  Cilium is our CNI provider.
+  {{< /card >}}
+
+  {{< card header="Cluster API" >}}
+  [![ClusterAPI logo](https://raw.githubusercontent.com/kubernetes-sigs/cluster-api/main/logos/kubernetes-cluster-logos_final-02.svg)](https://github.com/kubernetes-sigs/cluster-api/)
+  - **Using since:** 2024
+  - **Current version:** v1.18.5
+
+  TODO: Cluster API's function.
+  {{< /card >}}
+
+  {{< card header="Envoy" >}}
+  [![envoy logo](https://github.com/cncf/artwork/raw/main/projects/envoy/horizontal/color/envoy-horizontal-color.svg)](https://www.cncf.io/projects/envoy/)
+  - **Using since:** 2024
+  - **Current version:** v1.7.1
+
+  Envoy is used as our Gateway API provider.
+  {{< /card >}}
+
+  {{< card header="External-dns" >}}
+  [![External-secrets logo](https://raw.githubusercontent.com/kubernetes-sigs/external-dns/refs/heads/master/docs/img/external-dns.png)](https://github.com/kubernetes-sigs/external-dns/)
+  - **Using since:** 2021
+  - **Current version:** v
+
+  TODO:External-dns 
+  {{< /card >}}
+
+  {{< card header="External Secrets Operator" >}}
+  [![External-secrets logo](https://github.com/cncf/artwork/raw/main/projects/external-secrets-operator/horizontal/color/eso-horizontal-color.svg)](https://www.cncf.io/projects/external-secrets/)
+  - **Using since:** 2022
+  - **Current version:** v1.3.2
+
+  TODO: External Secrets Operator 
+  {{< /card >}}
+
+  {{< card header="Harbor" >}}
+  [![harbor logo](https://github.com/cncf/artwork/raw/main/projects/harbor/horizontal/color/harbor-horizontal-color.svg)](https://www.cncf.io/projects/harbor/)
+  - **Using since:** 2021
+  - **Current version:** v
+
+  TODO: Harbor is our global registry.
   {{< /card >}}
 
   {{< card header="Kubernetes" >}}
   [![kubernetes logo](https://raw.githubusercontent.com/cncf/artwork/main/projects/kubernetes/icon/color/kubernetes-icon-color.svg)](https://www.cncf.io/projects/kubernetes/)
-  - **Using since:** 2024
-  - **Current version:** 1.32.8 (CNIP)
-  - **Current version:** 1.31.x - 1.34.x (SKP)
+  - **Using since:** 2018
+  - **Current version:** 1.35
 
-  Kubernetes good.
-  Cluster API good.
+  TODO: Kubernetes' function
   {{< /card >}}
 
   {{< card header="Kyverno" >}}
@@ -60,7 +98,7 @@ reference_architectures:
   - **Using since:** 2024
   - **Current version:** v1.13.4 (CNIP)
 
-  Kyverno good.
+  TODO: Kyverno good.
   {{< /card >}}
 
   {{< card header="ORAS" >}}
@@ -68,7 +106,7 @@ reference_architectures:
   - **Using since:** 2024
   - **Current version:** v1.13.4 (CNIP)
 
-   ORAS good.
+   TODO: ORAS good.
   {{< /card >}}
 {{< /cardpane >}}
 
