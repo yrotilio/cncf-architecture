@@ -120,21 +120,28 @@ TODO
 
 ## Brief overview of your architecture and any potential goals you are trying to achieve with it?
 
-## Goals
+The architecture explained below, is our OnPremise implementation of our Kubernetes deployment strategy.
+
+### Goals
 
 - Implement an easy and uniform way to consume and maintain Kubernetes across all our landing zones (private and public clouds).
 - Have a centralized way to manage the lifecycle of our clusters and their components.
 - Apply security and compliance policies across all clusters we are managing.
+- Be able to scale manage lot of clusters with a small team.
+- Be able to deploy clusters in a few minutes.
+- Improve maintainability of our clusters.
+- We wanted cloud native tools on premise.
 
 ## Can you expand on why you are using those projects/services?
 
 CNCF projects and OpenSource are at the heart of our architecture:
-- **Kubernetes**
-- **ClusterAPI to rule them all**
-- **ArgoCD to deploy clusters & components**
-- **Kyverno to enforce policies and mutate resources**
-- **Cilium as CNI**
-- **Harbor as a private registry**
+- **Kubernetes (Talos)** *(Kubenetes : using since 2018, Talos : using since 2025)* : We use Kubernetes because it's awesome! Talos is an immutable OS to deploy Kubernetes.
+- **Openstack to provide the infrastructure** *(using since 2025)* : OpenStack allow us to consume the infrastructure in a cloud native way.
+- **ClusterAPI to rule them all** *(using since 2025)* : We use ClusterAPI to manage the lifecycle of our clusters. It also provides node autoscaling and node autoremediation in case of failure. It is compatible with Talos and Openstack.
+- **ArgoCD to deploy clusters & components** *(using since 2023)* : We are using ArgoCD on all our clusters on private and public clouds. It allows us to manage the lifecycle of clusters infrastructure components.
+- **Kyverno to enforce policies and mutate resources** *(using since 2022)* : Kyverno allow us to enforce policies like force the use of our private registry, force the usage of requests and limits, etc. It also allows us to mutate resources like auto add pod disruption budget or topology spread constraints, etc.
+- **Cilium as CNI**  *(using since 2023)* :
+- **Harbor as a private registry** *(using since 2020)* : Harbor is our private registry used to store OCI artifacts (like images, charts, etc.).
 
 ## What has worked well?
 
