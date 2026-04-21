@@ -150,13 +150,14 @@ The architecture explained below, is our OnPremise implementation of our Kuberne
 ## Can you expand on why you are using those projects/services?
 
 CNCF projects and OpenSource are at the heart of our architecture:
-- **Kubernetes (Talos)** *(Kubenetes : using since 2018, Talos : using since 2025)* : We use Kubernetes because it's awesome! Talos is an immutable OS to deploy Kubernetes.
-- **Openstack to provide the infrastructure** *(using since 2025)* : OpenStack allow us to consume the infrastructure in a cloud native way.
-- **ClusterAPI to rule them all** *(using since 2025)* : We use ClusterAPI to manage the lifecycle of our clusters. It also provides node autoscaling and node autoremediation in case of failure. It is compatible with Talos and Openstack.
+- **ClusterAPI to rule them all** *(using since 2025)* : We use ClusterAPI to manage the lifecycle of our Kubernetes clusters. It also provides node autoscaling through cluster autoscaler and node autoremediation in case of failure.
+- **Kubernetes (Talos)** *(Kubenetes : using since 2018, Talos : using since 2025)* : We use Kubernetes on every SNCF hosting zone. Talos was chosen as "Kubernetes Operating System" because it is an easy way to deploy a production grade clusters with immutability and security in mind. We manage Talos nodes through the Cluster API's Talos provider (CACPPT).
+- **Openstack to provide the infrastructure** *(using since 2025)* : OpenStack allow us to consume the bare-metal infrastructure in a cloud native way. It gives us a similar resources abstraction on infrastructure as public clouds. We consume OpenStack through the Cluster API's Openstack provider (CAPO).
 - **ArgoCD to deploy clusters & components** *(using since 2023)* : We are using ArgoCD on all our clusters on private and public clouds. It allows us to manage the lifecycle of clusters infrastructure components.
 - **Kyverno to enforce policies and mutate resources** *(using since 2022)* : Kyverno allow us to enforce policies like force the use of our private registry, force the usage of requests and limits, etc. It also allows us to mutate resources like auto add pod disruption budget or topology spread constraints, etc.
 - **Cilium as CNI**  *(using since 2023)* :
 - **Harbor as a private registry** *(using since 2020)* : Harbor is our private registry used to store OCI artifacts (like images, charts, etc.).
+- **Renovate to automate patch management** *(using since 2025)* : Renovate is used to automate patch management of Talos, Kubernetes and infrastructure components.
 
 ## What has worked well?
 
