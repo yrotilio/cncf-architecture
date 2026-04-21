@@ -22,11 +22,12 @@ tags:
 - private_cloud
 - kubernetes
 - france
+- sovereignty
 reference_architectures:
-- Platform Engineering
+- platform
 ---
 
-## Relevant CNCF projects
+## Relevant projects
 
 {{< cardpane >}}
   {{< card header="ArgoCD" >}}
@@ -37,28 +38,12 @@ reference_architectures:
   ArgoCD serves as our main infrastructure engine. We've configured it so it can manage day 1 and day 2 operations seamlessly : Cluster APIs primitives on the management cluster to ensure CP operations, and kubernetes deployment to ensure tooling and user clusters configuration.
   {{< /card >}}
 
-  {{< card header="Cilium" >}}
-  [![cilium logo](https://github.com/cncf/artwork/raw/main/projects/cilium/horizontal/color/cilium-horizontal-color.svg)](https://www.cncf.io/projects/cilium/)
-  - **Using since:** 2024
-  - **Current version:** v1.18.5
-
-  Cilium is our CNI provider.
-  {{< /card >}}
-
   {{< card header="Cluster API" >}}
   [![ClusterAPI logo](https://raw.githubusercontent.com/kubernetes-sigs/cluster-api/main/logos/kubernetes-cluster-logos_final-02.svg)](https://github.com/kubernetes-sigs/cluster-api/)
   - **Using since:** 2024
   - **Current version:** v1.18.5
 
-  TODO: Cluster API's function.
-  {{< /card >}}
-
-  {{< card header="Envoy" >}}
-  [![envoy logo](https://github.com/cncf/artwork/raw/main/projects/envoy/horizontal/color/envoy-horizontal-color.svg)](https://www.cncf.io/projects/envoy/)
-  - **Using since:** 2024
-  - **Current version:** v1.7.1
-
-  Envoy is used as our Gateway API provider.
+  Cluster API manages K8s control planes & machines at scale leaning on the adhoc infrastucture providers (CAPO for Openstack and CACPPT for Talos), and serves as autoscaling & autohealing provider.
   {{< /card >}}
 
   {{< card header="External-dns" >}}
@@ -66,7 +51,7 @@ reference_architectures:
   - **Using since:** 2021
   - **Current version:** v
 
-  TODO:External-dns 
+  External-dns automates Designate records management for users Clusters.
   {{< /card >}}
 
   {{< card header="External Secrets Operator" >}}
@@ -74,7 +59,7 @@ reference_architectures:
   - **Using since:** 2022
   - **Current version:** v1.3.2
 
-  TODO: External Secrets Operator 
+  External Secrets Operator is the glue between Hashicorp Vault and Users clusters, managing pull secrets and so on
   {{< /card >}}
 
   {{< card header="Harbor" >}}
@@ -82,43 +67,73 @@ reference_architectures:
   - **Using since:** 2021
   - **Current version:** v
 
-  TODO: Harbor is our global registry.
+  Harbor is the central registry storing and distributings all the images used on container based infrastructures @ SNCF.
   {{< /card >}}
 
   {{< card header="Kubernetes" >}}
   [![kubernetes logo](https://raw.githubusercontent.com/cncf/artwork/main/projects/kubernetes/icon/color/kubernetes-icon-color.svg)](https://www.cncf.io/projects/kubernetes/)
   - **Using since:** 2018
-  - **Current version:** 1.35
+  - **Current version:** 1.35.x
 
-  TODO: Kubernetes' function
+  Kubernetes is the sole container orchestrator deployed in all SNCF's hosting zones.
   {{< /card >}}
 
-  {{< card header="Kyverno" >}}
-  [![kyverno logo](https://github.com/cncf/artwork/raw/main/projects/kyverno/horizontal/color/kyverno-horizontal-color.svg)](https://www.cncf.io/projects/kyverno/)
+  {{< card header="OpenStack" >}}
+  [![openstack logo](https://raw.githubusercontent.com/openstack/openstackdocstheme/refs/heads/master/openstackdocstheme/theme/openstackdocs/static/images/openstack-logo-full.svg)](https://opendev.org/openstack/openstack/)
   - **Using since:** 2024
-  - **Current version:** v1.13.4 (CNIP)
+  - **Current version:** ???
 
-  TODO: Kyverno good.
+  OpenStack provides Machines, DNS, storage and network to the platform, it is automated by CAPO.
   {{< /card >}}
 
   {{< card header="ORAS" >}}
   [![oras logo](https://github.com/cncf/artwork/raw/main/projects/oras/horizontal/color/oras-horizontal-color.svg)](https://www.cncf.io/projects/oras/)
   - **Using since:** 2024
-  - **Current version:** v1.13.4 (CNIP)
+  - **Current version:** ???
 
-   TODO: ORAS good.
+  ORAS is used to manage CAPI providers as OCI artifacts, enabling argocd to manage the lifecycle of said providers.
+  {{< /card >}}
+
+  {{< card header="Renovate" >}}
+  [![renovate logo](https://github.com/renovatebot/renovate/blob/main/docs/usage/assets/images/logo.png)](https://github.com/renovatebot/renovate/)
+  - **Using since:** 2024
+  - **Current version:** ???
+
+  Renovate automates OS patch management.
+  {{< /card >}}
+
+  {{< card header="Talos Linux" >}}
+  [![talos logo](https://raw.githubusercontent.com/siderolabs/docs/refs/heads/main/public/talos/v1.13/images/logo.svg)](https://github.com/siderolabs/talos/)
+  - **Using since:** 2024
+  - **Current version:** ???
+
+  Talos Linux provides an immutable OS and K8s control plane provider combo.
   {{< /card >}}
 {{< /cardpane >}}
 
-## Describe your organisation
+## TLDR; Synopsis
 
-TODO
+This reference architecture describes SNCF's second internal On Premise Kubernetes Platform, built upon a bare metal open source OpenStack Infrastructure to provide at scale Container orchestration and scheduling. 
+It has revolutionized hosting options for the organization's applications, successfully providing a public cloud managed kubernetes service equivalent to internal teams. This platform allows them to build a sovereign strategy in coherence to the applications' requirements.
 
-## Describe your entity and/or team
+In particular, this architecture targets:
+* A layer by layer explanation on how the platform was designed for end-to-end automation for all its components
 
-TODO
+## Organization
 
-## Brief overview of your architecture and any potential goals you are trying to achieve with it?
+SNCF is the publicly owned french rail operator, in charge of every layer of the rail transportation idiom except actually building trains. It encompasses thousands of differents trades, resulting in needing thousands of different software applications operated mostly by one IT departement.
+
+The company decided in the late 2010s to move massively to the public cloud, giving birth to a containers platform team leaning on public cloud managed kubernetes services to create a hosting solution for container compatible applications.
+In 2023, that massive public cloud move was mainly wrapped up, the Kubernetes platform entering a growth sustainability phase, with at scale management problematics enforcing GitOps adoption. These stabilization efforts soon highlighted the need to offer the same level of service for container compatible applications not elligible for public cloud migrations, in order to prevent the organization to vendor lock itself with a lopsided two-tier system.
+
+This was addressed by a joined initiative between a private cloud provider built on premises and an end-to-end automated kubernetes platform build on top of it.
+
+## Teams
+
+* Private Cloud Infrastructure - 
+* Cloud Native Integration - 
+
+## Architecture
 
 The architecture explained below, is our OnPremise implementation of our Kubernetes deployment strategy.
 
