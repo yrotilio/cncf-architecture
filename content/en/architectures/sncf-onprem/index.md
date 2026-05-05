@@ -135,8 +135,6 @@ This was addressed by a joined initiative between a private cloud provider built
 
 ## Architecture
 
-The architecture explained below, is our OnPremise implementation of our Kubernetes deployment strategy.
-
 ### Goals
 
 - Implement an easy and uniform way to consume and maintain Kubernetes across all our landing zones (private and public clouds).
@@ -146,6 +144,26 @@ The architecture explained below, is our OnPremise implementation of our Kuberne
 - Be able to deploy clusters in a few minutes.
 - Improve maintainability of our clusters.
 - We wanted cloud native tools on premise.
+
+### Architecture overview
+
+![hld](./images/archi-high.png)
+
+To reproduce the "cloud experience" (on the right) we needed to use the same input manifest to create clusters. 
+
+Management cluster host ClusterAPI and ArgoCD to manage workload clusters deployments.
+This cluster is landed on OpenStack with terraform through JenkinsCI.
+
+ORAS and GitlabCI are used to pull and create oci with files needed to install clusterAPI providers.
+
+Workload cluster use a single manifest too to create landingzone through terraform and with the help of helm we provide clusterAPI files to provision it using :
+- ClusterApi Provider Openstack as Infrastructure Provider (CAPO)
+- ClusterApi Controlplane Provider Talos as Controlplane provider (CACPPT)
+- ClusterApi Bootstrap Provider Talos as Bootstrap provider (CABPT)
+
+
+
+
 
 ## Can you expand on why you are using those projects/services?
 
